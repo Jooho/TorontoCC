@@ -1,0 +1,105 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: chat-client
+  name: chat-client
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      openshift.io/imported-from: docker.io/ljhiyh/chat-client:v1
+    from:
+      kind: DockerImage
+      name: docker.io/ljhiyh/chat-client:v1
+    importPolicy: {}
+    name: v1
+    referencePolicy:
+      type: Source
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: chat-client
+  name: chat-client
+spec:
+  ports:
+  - name: 4200-tcp
+    port: 4200
+    protocol: TCP
+    targetPort: 4200
+  selector:
+    app: chat-client
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: chat-client
+    version: v1
+  name: chat-client-v1
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: chat-client
+    deploymentconfig: chat-client-v1
+    version: v1
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: chat-client
+        deploymentconfig: chat-client-v1
+        version: v1
+    spec:
+      containers:
+      - image: docker.io/ljhiyh/chat-client:v1
+        imagePullPolicy: IfNotPresent
+        name: chat-client
+        ports:
+        - containerPort: 4200
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 4200
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 60
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - chat-client
+      from:
+        kind: ImageStreamTag
+        name: chat-client:v1
+    type: ImageChange
+
