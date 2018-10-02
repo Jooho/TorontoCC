@@ -48,7 +48,7 @@ oc rsh $(oc get pod|grep auth|head -n 1|awk '{print $1}')
 curl localhost:8080/misbehave
 
 http://chat-client.apps.toronto.openshiftworkshop.com/emulate
-oc apply -n chat -f scripts/istio/6-0.destinationRule-auth-cb-policy.yaml
+oc apply -n chat -f scripts/istio/6-0.destinationRule-auth-cb-policy-pool-eject.yaml
 
 
 

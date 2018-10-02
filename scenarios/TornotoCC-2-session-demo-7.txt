@@ -47,5 +47,5 @@ oc apply -f  scripts/istio/8-1.vs-initial-server-retry.yaml
 oc apply -f  scripts/istio/8-0.vs-auth-fault-503.yaml
 
 
-#9 Service resilience - Circuit Breaker
+
 
