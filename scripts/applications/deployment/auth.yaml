@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: auth
   labels:
-    app: details
+    app: auth
 spec:
   ports:
   - port: 8080
     name: http
   selector:
-    app: details
+    app: auth
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -20,11 +20,11 @@ spec:
   template:
     metadata:
       labels:
-        app: details
+        app: auth
         version: v1
     spec:
       containers:
-      - name: details
+      - name: auth
         image: ljhiyh/auth
         imagePullPolicy: IfNotPresent
         ports:
