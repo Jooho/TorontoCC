@@ -12,5 +12,5 @@ spec:
       http:
         http2MaxRequests: 1
         maxRequestsPerConnection: 1
-        http1MaxPendingRequests: 0
-        maxRetries: 0
+        http1MaxPendingRequests: 1
+        maxRetries: 1
