@@ -1,10 +1,10 @@
 Clear
 ~~~
 oc delete project chat
+oc delete project istio-system
 
-oc delete route chat-client-ingress -n istio-system
-oc delete route chat-server-ingress -n istio-system
 ~~~
 
+Logout browser
 
 

@@ -21,10 +21,7 @@ oc expose svc prometheus
 oc expose svc tracing
 
 -------------------------------------------------------------
-Clear
-~~~
 
-~~~
 
 #0 Demo project
 ~~~
@@ -35,10 +32,11 @@ oc delete limitrange --all
 
 
 # Demo 1 - Base deployment
-~~~
+
 ## Redis
 oc new-app --template=redis-ephemeral -p REDIS_PASSWORD=redis
 
+oc apply -f <(istioctl kube-inject -f scripts/applications/deployment/redis.yaml )
 ## Client
 oc apply -n chat -f <(istioctl kube-inject -f scripts/applications/deployment/chat-client-v1.yaml)
 oc apply -n chat -f <(istioctl kube-inject -f scripts/applications/deployment/chat-client-android.yaml)
@@ -59,4 +57,7 @@ oc expose  svc istio-ingressgateway --name chat-server-ingress --hostname="chat-
 oc apply -n chat -f scripts/istio/1-0.chat-gateway.yaml 
 oc apply -n chat -f scripts/istio/1-1.vs-client-server.yaml  
 oc apply -n chat -f scripts/istio/1-2.destinationRule-chat-client.yaml 
-~~~
+
+
+chat-client.apps.toronto.openshiftworkshop.com
+

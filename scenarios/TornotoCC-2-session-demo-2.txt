@@ -51,6 +51,9 @@ http://chat-client.apps.toronto.openshiftworkshop.com/emulate
 oc apply -n chat -f scripts/istio/6-0.destinationRule-auth-cb-policy-pool-eject.yaml
 
 
+## Clean 
+oc get virtualservice auth -o yaml
+
 
 
 
