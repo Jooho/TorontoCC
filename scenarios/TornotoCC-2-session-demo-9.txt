@@ -10,7 +10,7 @@ siege -r 2 -c 20 http://chat-server-example-chat.apps.toronto.openshiftworkshop.
 
 oc apply -f scripts/istio/9-1.destinationRule-auth-cb-policy-pending.yaml
 
-siege -r 20 -c 20 http://chat-server-example-chat.apps.toronto.openshiftworkshop.com/emulate?id=abc
+siege -r 2 -c 20 http://chat-server-example-chat.apps.toronto.openshiftworkshop.com/emulate?id=abc
 
 
 ## Clean

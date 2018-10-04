@@ -79,15 +79,13 @@ do
   docker push docker.io/ljhiyh/chat-client:$docker
 ;done
 
-
-
 ## Server source update
 oc new-app https://github.com/Jooho/chat-server-example.git
 oc patch bc/chat-server-example  -p '{"spec":{"strategy": {"sourceStrategy": {"incremental": true}}}}'
 ### git commit 
 
 oc start-build chat-server-example
-export tag=v2
+export tag=v1
 docker pull $(oc get is  chat-server-example -o jsonpath='{.status.dockerImageRepository}')
 docker tag $(oc get is  chat-server-example -o jsonpath='{.status.dockerImageRepository}') docker.io/ljhiyh/chat-server:$tag
 docker push docker.io/ljhiyh/chat-server:$tag
