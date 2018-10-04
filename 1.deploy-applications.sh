@@ -28,6 +28,7 @@ oc expose  svc istio-ingressgateway --name chat-server-ingress --hostname="chat-
 oc apply -n chat -f scripts/istio/1-0.chat-gateway.yaml 
 oc apply -n chat -f scripts/istio/1-1.vs-client-server.yaml  
 oc apply -n chat -f scripts/istio/1-2.destinationRule-chat-client.yaml 
+oc apply -n chat -f scripts/istio/1-3.destinationRule-chat-server.yaml 
 
 
 clear

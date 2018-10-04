@@ -6,6 +6,7 @@ export ISTIO_HOME=`pwd`
 export PATH=$ISTIO_HOME/bin:$PATH
 
 oc apply -f install/kubernetes/helm/istio/templates/crds.yaml
+sleep 1
 oc apply -f install/kubernetes/istio-demo.yaml
 oc project istio-system
 oc adm policy add-scc-to-group anyuid system:authenticated
