@@ -14,8 +14,7 @@ spec:
     route:
     - destination:
         host: chat-server
-        port:
-          number: 8080
+        subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -33,5 +32,4 @@ spec:
     route:
     - destination:
         host: chat-client
-        port:
-          number: 4200
+        subset: v1

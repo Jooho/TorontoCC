@@ -4,10 +4,12 @@ metadata:
   name: chat-server
 spec:
   host: chat-server
-  subsets:
-  - name: all
-    labels:
-      app: chat-server
   trafficPolicy:
     loadBalancer:
-      simple: RANDOM
+      simple: ROUND_ROBIN
+  subsets:
+  - name: v1
+    labels:
+      app: chat-server
+      version: v1
+
