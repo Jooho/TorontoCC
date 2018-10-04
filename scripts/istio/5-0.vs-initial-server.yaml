@@ -15,6 +15,3 @@ spec:
     route:
     - destination:
         host: chat-server
-        port:
-          number: 8080
-
